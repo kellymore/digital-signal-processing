@@ -1,6 +1,6 @@
 # Digital Signal Processing
 
-In assisting with sound therapy for ongoing studies of 444 hertz, this ongoing project assists scientists, researchers, and [cereset](https://cereset.com/) enthusiast in studies related to sound and frequency by converting everyday sounds and music to 444 hertz.
+In assisting with sound therapy for ongoing studies of 444 and 528 hertz, this ongoing project assists scientists, researchers, and [cereset](https://cereset.com/) enthusiast in studies related to sound and frequency by converting everyday sounds and music to 444 and 528 hertz.
 
 ## Past Research
 

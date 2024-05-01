@@ -2,6 +2,8 @@
 
 In assisting with sound therapy for ongoing studies of 444 and 528 hertz, this ongoing project assists scientists, researchers, and [cereset](https://cereset.com/) enthusiast in studies related to sound and frequency by converting everyday sounds and music to 444 and 528 hertz.
 
+This project's UI is currently not compatiable on Brave
+
 ## Past Research
 
 - [Effect of Vibroacoustic Therapy on Emotional State and Quality of Life in Patients with Fibromyalgia](https://www.tandfonline.com/doi/abs/10.1080/09638288.2019.1687763)

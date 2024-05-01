@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Result</title>
+</head>
+<body>
+    <h1>Upload Result</h1>
+    <p>Uploaded File: {{ filename }}</p>
+    <p>Modified File: {{ modified_filename }}</p>
+    
+    <audio controls>
+        <!-- Update src attribute to use the new route -->
+        <source src="/audio_files/{{ modified_filename }}" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+</body>
+</html>
+

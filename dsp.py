@@ -54,7 +54,6 @@ def upload():
         return 'No selected file'
 
     file_path = os.path.join('audio_files', file.filename)
-    print("FILE PATH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", file_path)
     file.save(file_path)
 
     # Change frequency

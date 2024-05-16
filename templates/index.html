@@ -9,15 +9,15 @@
 <body>
     <section class="container">
         <div class="title">
-        <h1>Hz Audio Conversion</h1>
-        <h3>Select Hz option below and upload mp3 file for audio conversion.</h3>
+            <h1>Hz Audio Conversion</h1>
+            <h3>Select Hz option below and upload mp3 file for audio conversion.</h3>
         </div>
         <form action="/upload" method="post" enctype="multipart/form-data">
             <div class="radio-buttons">
-                <input type="radio" id="html" name="fav_language" value="444 Hz">
-                <label for="html">444 Hz</label><br>
-                <input type="radio" id="html" name="fav_language" value="528 Hz">
-                <label for="html">528 Hz</label><br>
+                <input type="radio" id="hz444" name="hz_option" value="444">
+                <label for="hz444">444 Hz</label><br>
+                <input type="radio" id="hz528" name="hz_option" value="528">
+                <label for="hz528">528 Hz</label><br>
             </div>
             <input type="file" name="file">
             <button type="submit">Upload</button>
@@ -25,3 +25,4 @@
     </section>
 </body>
 </html>
+

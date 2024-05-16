@@ -2,13 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Upload Audio File</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hz Audio Conversion</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Upload Audio File</h1>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <button type="submit">Upload</button>
-    </form>
+    <section class="container">
+        <div class="title">
+        <h1>Hz Audio Conversion</h1>
+        <h3>Select Hz option below and upload mp3 file for audio conversion.</h3>
+        </div>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <div class="radio-buttons">
+                <input type="radio" id="html" name="fav_language" value="444 Hz">
+                <label for="html">444 Hz</label><br>
+                <input type="radio" id="html" name="fav_language" value="528 Hz">
+                <label for="html">528 Hz</label><br>
+            </div>
+            <input type="file" name="file">
+            <button type="submit">Upload</button>
+        </form>
+    </section>
 </body>
 </html>

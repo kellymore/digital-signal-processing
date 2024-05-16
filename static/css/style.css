@@ -7,7 +7,7 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    flex-direction: column; /* Align items vertically */
+    flex-direction: column;
 }
 
 .container {
@@ -26,6 +26,6 @@ h3 {
 .radio-buttons {
     display: flex;
     justify-content: center;
-    gap: 30px; /* Adjust the gap between radio buttons if needed */
-    margin-bottom: 30px; /* Space between radio buttons and file input */
+    gap: 30px;
+    margin-bottom: 30px;
 }

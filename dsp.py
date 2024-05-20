@@ -11,29 +11,13 @@ def serve_audio(filename):
     return send_from_directory('audio_files', filename)
 
 def change_frequency(audio_file, target_sr=None, res_type='sinc_best'):
-    """
-    This function uploads a song, changes its frequency to the target sampling rate,
-    and saves the modified version.
-
-    Args:
-        audio_file (str): Path to the audio file to be modified.
-        target_sr (int, optional): The desired sampling rate after resampling. Defaults to None (use value from request).
-        res_type (str, optional): The resampling method. Defaults to 'sinc_best'.
-    Returns:
-        str: The path to the modified audio file.
-    """
-
-    # Upload the song
     y, orig_sr = librosa.load(audio_file)
 
-    # Get target sampling rate from request (if not provided)
     if target_sr is None:
         target_sr = int(request.form.get('hz_option'))
 
-    # Change frequency (resample)
     y_resampled = librosa.resample(y=y, orig_sr=orig_sr, target_sr=target_sr, res_type=res_type)
 
-    # Create new file path
     base_dir = os.path.dirname(audio_file)
     new_file_name = f"{os.path.splitext(os.path.basename(audio_file))[0]}_modified_{target_sr}.wav"
     new_file_path = os.path.join(base_dir, new_file_name)
@@ -57,18 +41,19 @@ def upload():
         if file.filename == '':
             return 'No selected file'
 
-        # Get the selected Hz option
-        hz_option = request.form.get('hz_option')  # Get value from form
+        hz_option = request.form.get('hz_option')
 
-        if hz_option is None:
-            return 'Please select a Hz option (444 Hz or 528 Hz)'  # Handle missing selection
+        if hz_option is None or not hz_option.isdigit():
+            return 'Please enter a valid Hz value (20 Hz to 20,000 Hz)'
 
         target_sr = int(hz_option)
+
+        if target_sr < 20 or target_sr > 20000:
+            return 'Please enter a Hz value between 20 and 20,000'
 
         file_path = os.path.join('audio_files', file.filename)
         file.save(file_path)
 
-        # Change frequency using target_sr from Hz option
         modified_file_path = change_frequency(file_path, target_sr)
 
         return render_template('result.html', filename=file.filename, modified_filename=os.path.basename(modified_file_path))

@@ -1,29 +1,21 @@
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, render_template, request, send_file, abort
 import librosa
 import os
 import soundfile as sf
+import tempfile
 
 app = Flask(__name__)
 
-# Route for serving audio files
-@app.route('/audio_files/<path:filename>')
-def serve_audio(filename):
-    return send_from_directory('audio_files', filename)
-
-def change_frequency(audio_file, target_sr=None, res_type='sinc_best'):
+def change_frequency(audio_file, target_sr, res_type='sinc_best'):
     y, orig_sr = librosa.load(audio_file)
-
-    if target_sr is None:
-        target_sr = int(request.form.get('hz_option'))
-
     y_resampled = librosa.resample(y=y, orig_sr=orig_sr, target_sr=target_sr, res_type=res_type)
 
-    base_dir = os.path.dirname(audio_file)
+    # Create a temporary file for the modified audio
+    temp_dir = tempfile.gettempdir()
     new_file_name = f"{os.path.splitext(os.path.basename(audio_file))[0]}_modified_{target_sr}.wav"
-    new_file_path = os.path.join(base_dir, new_file_name)
-  
+    new_file_path = os.path.join(temp_dir, new_file_name)
+    
     sf.write(new_file_path, y_resampled, target_sr)
-
     return new_file_path
 
 @app.route('/')
@@ -51,15 +43,25 @@ def upload():
         if target_sr < 20 or target_sr > 20000:
             return 'Please enter a Hz value between 20 and 20,000'
 
-        file_path = os.path.join('audio_files', file.filename)
-        file.save(file_path)
+        # Save the uploaded file to a temporary file
+        with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+            file.save(temp_file.name)
+            temp_file_path = temp_file.name
 
-        modified_file_path = change_frequency(file_path, target_sr)
+        # Change frequency
+        modified_file_path = change_frequency(temp_file_path, target_sr)
 
-        return render_template('result.html', filename=file.filename, modified_filename=os.path.basename(modified_file_path))
+        # Send the modified file to the client
+        response = send_file(modified_file_path, as_attachment=True)
+
+        # Clean up the temporary files
+        os.remove(temp_file_path)
+        os.remove(modified_file_path)
+
+        return response
     except Exception as e:
         app.logger.error(str(e))
-        os.abort(500, 'An unexpected error occurred')
+        abort(500, description='An unexpected error occurred')
 
 @app.errorhandler(404)
 def page_not_found(e):

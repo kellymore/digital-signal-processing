@@ -15,7 +15,7 @@ In assisting with ongoing studies of sound therapy, this ongoing project assists
 Run 
 
 ```
-python3 dsp.py
+python app.py
 ```
 
 in your terminal to test sound conversion.
@@ -24,6 +24,3 @@ in your terminal to test sound conversion.
 
 - Human Hearing Range: The human ear can typically hear frequencies between 20 Hz and 20,000 Hz (20 kHz). The difference between 444 Hz and 528 Hz, for example, might be too subtle for most people to perceive directly, especially in shorter audio samples.
 - Audio Content: The conversion process itself might not significantly alter the perceived sound depending on the audio content. If the audio primarily consists of higher frequencies, a change from 444 Hz to 528 Hz, for example, might not be noticeable.
-- This project's UI is currently not compatiable on Brave.
-
-Vizualization of audio and volume matching work is in progress, as is compatibility with Brave Browser.

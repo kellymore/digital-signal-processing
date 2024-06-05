@@ -30,6 +30,9 @@ def upload():
 
         if target_sr < 20 or target_sr > 20000:
             return 'Please enter a Hz value between 20 and 20,000'
+        
+        # Extract filename from uploaded file
+        original_filename = file.filename
 
         # Save the uploaded file to a temporary file
         with tempfile.NamedTemporaryFile(delete=False) as temp_file:
@@ -39,8 +42,11 @@ def upload():
         # Change frequency
         modified_file_path = change_frequency(temp_file_path, target_sr)
 
+        # Construct the download filename (without extension)
+        download_name = f"{os.path.splitext(original_filename)[0]}_{target_sr}"
+
         # Send the modified file to the client
-        response = send_file(modified_file_path, as_attachment=True)
+        response = send_file(modified_file_path, as_attachment=True, download_name=f"{download_name}.wav")
 
         # Clean up temporary files
         os.remove(temp_file_path)
